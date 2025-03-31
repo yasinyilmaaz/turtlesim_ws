@@ -1,0 +1,18 @@
+running develop
+running egg_info
+writing turtlesim_py_pkg.egg-info/PKG-INFO
+writing dependency_links to turtlesim_py_pkg.egg-info/dependency_links.txt
+writing entry points to turtlesim_py_pkg.egg-info/entry_points.txt
+writing requirements to turtlesim_py_pkg.egg-info/requires.txt
+writing top-level names to turtlesim_py_pkg.egg-info/top_level.txt
+reading manifest file 'turtlesim_py_pkg.egg-info/SOURCES.txt'
+writing manifest file 'turtlesim_py_pkg.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/yasin/turtlesim_ws/src/install/turtlesim_py_pkg/lib/python3.10/site-packages/turtlesim-py-pkg.egg-link (link to .)
+Installing go_to_loc script to /home/yasin/turtlesim_ws/src/install/turtlesim_py_pkg/lib/turtlesim_py_pkg
+Installing vel_contoller script to /home/yasin/turtlesim_ws/src/install/turtlesim_py_pkg/lib/turtlesim_py_pkg
+
+Installed /home/yasin/turtlesim_ws/src/build/turtlesim_py_pkg
+running symlink_data
+symbolically linking /home/yasin/turtlesim_ws/src/build/turtlesim_py_pkg/resource/turtlesim_py_pkg -> /home/yasin/turtlesim_ws/src/install/turtlesim_py_pkg/share/ament_index/resource_index/packages
+symbolically linking /home/yasin/turtlesim_ws/src/build/turtlesim_py_pkg/package.xml -> /home/yasin/turtlesim_ws/src/install/turtlesim_py_pkg/share/turtlesim_py_pkg
