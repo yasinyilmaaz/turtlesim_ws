@@ -47,7 +47,7 @@ class AddTwoIntsServerNode(Node): #1
 
         future = client_.call_async(request)
         # future = asenkron bir şekilde server ile iletişim kuruldu
-        # colback içinde colback fonksiyonu çağrıldı
+        # callback = bir olayın gerçekleştiğinde otomatik olarak çağrılan bir fonksiyondur. 
         future.add_done_callback(partial(self.callback_call_add_two_ints, a=a, b=b)) # 4
         # partial = fonksiyona birden fazla parametre göndermek için kullanılır
         

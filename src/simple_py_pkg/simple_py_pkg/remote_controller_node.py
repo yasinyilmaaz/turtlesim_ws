@@ -9,7 +9,15 @@ from example_interfaces.msg import String
 # mesaj subscriber (abone olma) node
 # yayınlanan mesajın tipi String
 
-# publisher veriyi göstermez sadece yayınlar isteyen onu alır görür
+#### callback fonksiyonu
+bir olayın gerçekleştiğinde otomatik olarak çağrılan bir fonksiyondur. 
+
+
+# publisher veriyi yayınlar
+# publisher bir abonenin callback fonksiyonunda yada main fonksiyonunda çalışırtırılır.
+
+
+# subscriber bir publisher'a abone olur ve mesajı alır
 # subscriber veriyi alır ve gösterir
 
 # eğer publisher paylaşım durur ise subscriber'da durur ama kapanmaz

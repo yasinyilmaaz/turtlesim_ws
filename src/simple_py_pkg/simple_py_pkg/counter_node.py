@@ -50,7 +50,7 @@ class CounterNode(Node): #1
     def __init__(self):
         super().__init__("counter_node") # Node başlatılır ve isimlendirilir
         self.counter_ = 0
-        self.create_timer(0.5, self.timer_callback) # belli zaman aralığında çalışacak
+        self.create_timer(self.timer_callback) # belli zaman aralığında çalışacak
 
 
     #  callback fonksiyonu belli bir süre aralığında çalışır
