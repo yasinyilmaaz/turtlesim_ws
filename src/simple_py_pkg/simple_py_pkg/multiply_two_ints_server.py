@@ -3,6 +3,9 @@ import rclpy
 from rclpy.node import Node
 from simple_interface_pkg.srv import MultiplyTwoInts
 
+"""
+server tarafında iki sayıyı çarpan bir node
+"""
 
 class MultiplyTwoIntsServerNode(Node): #1
     def __init__(self):
