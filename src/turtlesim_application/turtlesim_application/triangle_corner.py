@@ -3,6 +3,7 @@ import rclpy
 from rclpy.node import Node
 from turtlesim_interfaces.msg import CornerDraw
 
+
 """
 konum kordinatlarını tutan ve her bir kordinatı sırayla yayınlayan node
 

@@ -24,6 +24,8 @@ setup(
             "triangle_corner_node = turtlesim_application.triangle_corner:main",
             "spawn_turtles_node = turtlesim_application.spawn_turtle:main",
             "go_to_location_node = turtlesim_application.go_to_loc:main",
+            'coordinate_info_server_node = turtlesim_application.coordinate_info_server:main',
+            "coordinate_draw_node = turtlesim_application.coordinate_draw:main",
         ],
     },
 )

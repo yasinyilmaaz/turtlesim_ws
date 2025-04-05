@@ -8,7 +8,7 @@ from turtlesim.msg import Pose
 from functools import partial
 from turtlesim_interfaces.srv import CatchTurtles
 from turtlesim_interfaces.msg import TurtleArray, Turtle
-
+from turtlesim_interfaces.msg import CornerStatus
 """
 Turtle1 kablumbağası için bir hedefe gitme ve hedefi yok etmesini sağlayan uygulama
 """
@@ -20,7 +20,7 @@ class GoToLocationNode(Node):
         self.coeff = 0.85 # gidilecek konumda daha yumuşak bir duruş sağlamk için
         self.pose_threshold_linear = 0.2 # doğrusal hata
         self.pose_threshold_angular = 0.01 # açısal hata
-
+        self.status = False # kaplumbağaların durumu
         # koordinatlara erişim için
         self.new_turtle_subscriber_ = self.create_subscription(TurtleArray, "/new_turtles",self.callback_turtles, 10)
         self.pose_ = None # kaplumbağanın pozisyonu
@@ -29,8 +29,12 @@ class GoToLocationNode(Node):
         
         self.publishers_ = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
         self.subscriber_ = self.create_subscription(Pose, "turtle1/pose", self.callback_turtle_pose, 10)
-        
+        self.subscriber_corner_ = self.create_subscription(CornerStatus, "/corner_draw_success", self.callback_turtle_status, 10) # kordinatların başarıyla çizildiğini bildiren bir publisher
         self.timer = self.create_timer(1, self.turtle_controller)
+
+    def callback_turtle_status(self, msg):
+        self.get_logger().info(f"Status turtle is called! = {msg.status}")
+        self.status = msg.status # gelen mesajın verisi alındı
 
     # turtle pozisyonunu alır(x,y,theta)
     def callback_turtle_pose(self, msg):
@@ -44,7 +48,8 @@ class GoToLocationNode(Node):
     #
     def turtle_controller(self):
         # eğer kaplumbağa yoksa veya yakalanacak kaplumbağa yoksa hata almamak için geri döner
-        if self.pose_ == None or self.new_turtle_to_catch_ == None:
+        # status kontrol edilme sebebi eğer konum servisi çaılışır ise ilk onu yapacak sonrasında öldürme işlemini
+        if self.pose_ == None or self.new_turtle_to_catch_ == None or self.status == False:
             return
 
         # kaplumbağanın ile hedef arasında mesafe hesaplanır

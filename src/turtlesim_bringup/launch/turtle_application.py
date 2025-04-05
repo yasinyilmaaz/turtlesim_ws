@@ -21,6 +21,13 @@ def generate_launch_description():
         package="turtlesim_application",
         executable="draw_triangle_node",
     )
+
+    coordinate_info = Node(
+        package="turtlesim_application",
+        executable="coordinate_info_server_node",
+    )
+
+
     spawn_turtle = Node(
         package="turtlesim_application",
         executable="spawn_turtles_node",
@@ -33,8 +40,9 @@ def generate_launch_description():
 
     # Düğümler sırayla başlatılır
     ld.add_action(turtlesim_node)
-    ld.add_action(triagle_corner)
     ld.add_action(draw_triangle)
+    ld.add_action(coordinate_info)
+
     ld.add_action(spawn_turtle)
     ld.add_action(go_to_loc)
 

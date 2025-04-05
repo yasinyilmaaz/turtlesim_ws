@@ -12,7 +12,10 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Turtle.msg"
   "msg/TurtleArray.msg"
+  "msg/CornerDraw.msg"
+  "msg/CornerStatus.msg"
   "srv/CatchTurtles.srv"
+  "srv/CoordinateDraw.srv"
 )
 
 

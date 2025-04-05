@@ -49,9 +49,8 @@ class SpawnTurtleNode(Node):
         self.new_turtle_publisher_.publish(msg)
 
     def status_turtle(self, msg):
-        if msg.status:
-            self.get_logger().info(f"Status turtle is called! = {msg.status}") # spawn turtle çağrıldı
-            self.status = msg.status # gelen mesajın verisi alındı
+        self.get_logger().info(f"Status turtle is called! = {msg.status}") # spawn turtle çağrıldı
+        self.status = msg.status # gelen mesajın verisi alındı
 
     # random olarak turtle oluşturur
     def spawn_turtle(self):
@@ -141,7 +140,8 @@ class SpawnTurtleNode(Node):
             for (i, turtle) in enumerate(self.new_turtles_):
                 if turtle_name == turtle.name:
                     del self.new_turtles_[i]
-                    self.publish_new_turtles()
+                    if self.status:
+                        self.publish_new_turtles()
                     break
         except Exception as e: 
             self.get_logger().error("Service call faild %r" % {e,})

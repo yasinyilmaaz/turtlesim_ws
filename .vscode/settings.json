@@ -1,0 +1,14 @@
+{
+    "python.analysis.extraPaths": [
+        "/home/yasin/ros2_ws/build/simple_py_pkg",
+        "/home/yasin/ros2_ws/install/simple_py_pkg/lib/python3.10/site-packages",
+        "/home/yasin/ros2_ws/install/simple_interface_pkg/local/lib/python3.10/dist-packages",
+        "/home/yasin/turtlesim_ws/build/turtlesim_py_pkg",
+        "/home/yasin/turtlesim_ws/install/turtlesim_py_pkg/lib/python3.10/site-packages",
+        "/home/yasin/turtlesim_ws/build/turtlesim_application",
+        "/home/yasin/turtlesim_ws/install/turtlesim_application/lib/python3.10/site-packages",
+        "/home/yasin/turtlesim_ws/install/turtlesim_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
