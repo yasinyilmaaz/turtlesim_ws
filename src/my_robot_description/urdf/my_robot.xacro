@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name="base_footprint"/> <!--robotun zemin düzlemine göre pozisyonu (referans noktası)-->
+    <!--ana gövde düğüm-->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="${base_width} ${base_length} ${base_height}"/>    
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="cyan"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${base_width} ${base_length} ${base_height}"/>    
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <!--eylemsizlik momentinden kaynaklı oarak oluşan gazeboda robotun geri gitmesini eylemsizlik
+        momentlerine kat sayıları ekleyerek düzeltebiliriz 2*-->
+        <xacro:box_inertia m ="5.0" l = "${2*base_length}" 
+                                    w = "${2*base_width}" 
+                                    h = "${2*base_height}"
+                                    xyz = "0 0 0"
+                                    rpy = "0 0 0"                                    
+                                    />
+    </link>
+
+    <xacro:macro name="wheel_link" params="prefix">
+        <link name="${prefix}_wheel_link">
+            <visual>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+                <material name="green"/>
+            </visual>nda material(renk gibi) ayarları 
+            <xacro:cylinder_inertia m="1.0" r = "${2*wheel_radius}" 
+                                            h = "${2*wheel_length}"
+                                            xyz = "0 0 0"
+                                            rpy = "${pi/2} 0 0"                                   
+                                            />
+            <collision>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+            </collision>
+        </link>
+    </xacro:macro>
+
+    <xacro:wheel_link prefix="right"/>
+    <xacro:wheel_link prefix="left"/>
+
+    <link name="caster_wheel_link">
+        <visual>
+            <geometry>
+                <sphere radius="${caster_wheel_radius}"/>    
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="red"/>
+        </visual>
+        <!--eylemsizlik momenti için-->
+        <collision>
+            <geometry>
+                <sphere radius="${caster_wheel_radius}"/>    
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <xacro:sphere_inertia m="0.5" r = "${2*caster_wheel_radius}" 
+                                        xyz = "0 0 0"
+                                        rpy = "0 0 0"                                   
+                                        />
+    </link>
+
+    <!--robotun zemine göre konumlanması için-->
+    <joint name="base_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 ${(base_height / 2) + wheel_radius}" rpy="0 0 0" />
+    </joint>
+
+    <!--sağ tekerlek eklemi ve konumlandırılması-->
+    <joint name="base_right_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="right_wheel_link"/>
+        <origin xyz="${(- (base_width / 2)) + (wheel_radius)} 
+                    ${-((base_length / 2) + (wheel_length /2))} 
+                    ${- wheel_radius}" rpy="0 0 0" />
+        <axis xyz="0 1 0"/><!--dönüş ekseni verildi-->
+    </joint>
+
+    <!--sol tekerlek eklemi ve konumlandırılması-->
+    <joint name="base_left_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="left_wheel_link"/>
+        <origin xyz="
+                    ${(- (base_width / 2)) + (wheel_radius)} 
+                    ${((base_length / 2) + (wheel_length /2))} 
+                    ${- wheel_radius}" rpy="0 0 0" />
+        <axis xyz="0 1 0"/><!--dönüş ekseni verildi-->
+    </joint>
+
+    <!--sarhoş tekerlek eklem ayarı ve konumlandırılması-->
+    <joint name="base_caster_wheel_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="caster_wheel_link"/>
+        <origin xyz="0.2 0 ${- ((base_height / 2) + caster_wheel_radius)}" rpy="0 0 0" />
+    </joint>
+
+</robot>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!--inf değer sonsuz yani engel yok demektir-->
+    <!--geometrik özellikler-->
+    <xacro:property name="lidar_radius" value="0.08"/>
+    <xacro:property name="lidar_length" value="0.05"/>  
+    <!-- <xacro:property name="lidar_height" value="0.05"/> -->
+
+    <link name="lidar_link">
+        <visual>
+            <geometry>
+                <cylinder radius="${lidar_radius}" length="${lidar_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="red"/>
+        </visual>
+        <xacro:cylinder_inertia m="0.2" r = "${2*lidar_radius}" 
+                                        h = "${2*lidar_length}"
+                                        xyz = "0 0 0"
+                                        rpy = "0 0 0"                                   
+                                        />
+        <collision>
+            <geometry>
+                <cylinder radius="${lidar_radius}" length="${lidar_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        </collision>
+    </link>
+
+    <!--lidarı eklem ayarı ve robotta konumlandırılması-->
+    <joint name="base_lidar_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="lidar_link"/>
+        <origin xyz="0 0 ${(base_height / 2) + (lidar_length / 2)}" rpy="0 0 0" />
+    </joint>
+
+    <!--gazeboda lidarın özellikleri-->
+    <gazebo reference="lidar_link">
+        <material>Gazebo/Blue</material>
+        <sensor name="lidar_sensor" type="ray"><!--lidar olduğu type kısmında belirtildi-->
+            <pose>0 0 0 0 0</pose>
+            <visualize>true</visualize>
+            <update_rate>10.0</update_rate>
+            <!--laddar özel değerler-->
+            <ray>
+                <scan>
+                   
+                    <horizontal>
+                        <samples>720</samples><!--720 nokta alır-->
+                        <resolution>1</resolution><!--1 derece baına 2 örnek-->
+                         <!--360 derece tarama yapar-->
+                        <min_angle>-3.14</min_angle><!-- (-180)-->
+                        <max_angle>3.14</max_angle><!--180-->
+                    </horizontal>
+                </scan>
+                <!--lidar menzil ve hassasiywt-->
+                <range>
+                    <min>0.1</min> <!-- 10 cm -->
+                    <max>30.0</max><!-- 30 m -->
+                    <resolution>0.01</resolution><!-- 1 cm -->
+                </range>
+            </ray>
+            <!--ros lidar tarama mesajı-->
+            <plugin name="lidar" filename="libgazebo_ros_ray_sensor.so">
+                <output_type>sensor_msgs/LaserScan</output_type>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+</robot>

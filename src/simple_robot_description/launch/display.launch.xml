@@ -1,0 +1,16 @@
+<launch>
+    <!-- modelin 3 boyutlu modelinin bulunduğu urdf dosyası -->
+    <let name="urdf_path" value="$(find-pkg-share simple_robot_description)/urdf/simple_robot.urdf"/>
+    
+    <!--robotun eklem durumu /tf ve /robot_description ekler-->
+    <node  pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')"/>
+    </node>
+
+    <!--Eklem kontrolü için interaktif GUI sağlar-->
+    <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui"/>
+
+    <!-- Rviz başlatır-->
+    <node pkg="rviz2" exec="rviz2" output="screen" />
+
+</launch>

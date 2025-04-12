@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--xacro dosyası olduğunu bildirmek gerekli-->
+<!--xacro dosyası iledeğerlere değişken olarak atayabiliyoruz-->
+<robot name="simple_robot" xmlns:xacro="http://www.ros.org/wiki/xacro"> <!-- Robot adı taşıyan ana etiket-->
+    
+    <!-- değişken tanımlama-->
+     <xacro:property name="base_width" value="0.5" />
+     <xacro:property name="base_height" value="0.5" />
+     <xacro:property name="base_length" value="0.5" />
+
+    <!-- link: robotun her fiziksel bir parçası(tekerlek, gövde gibi)-->
+     <link  name="base_link"> <!--robotun katı bir kısmı yani ana gövdesi-->
+        <visual> <!-- şekil boyut konum gibi görsel özellikler tanımlanır içinde-->
+            <geometry> <!-- öğenin geometrik şeklinin içinde barındırır-->
+                <box size="0.5 0.5 0.5" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" /> <!--rpy = (roll, pitch, yaw) x y z eksenlerinin saat yönünde dönüş açıları -->
+            <!--xyz= merkez noktasının uzaydaki konumu -->
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <!-- programlamadaki fonksiyon mantığı ile çalışır-->
+     <xacro:macro name="arm_link" params="prefix">
+        <link  name="${prefix}_arm_link"> <!--robotun katı bir kısmı yani ana gövdesi-->
+            <visual> <!-- şekil boyut konum gibi görsel özellikler tanımlanır içinde-->
+                <geometry> <!-- öğenin geometrik şeklinin içinde barındırır-->
+                    <box size="${base_width} ${base_length} ${base_height}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0" /> <!--rpy = (roll, pitch, yaw) x y z eksenlerinin saat yönünde dönüş açıları -->
+                <!--xyz= merkez noktasının uzaydaki konumu -->
+                <material name="green"/>
+            </visual>
+        </link>
+     </xacro:macro>
+
+     
+
+     <!--macro oluşturuldu-->
+    <xacro:arm_link prefix="left"/>
+    <xacro:arm_link prefix="right"/>
+
+    <!-- joint: linkler arasındaki bağlantılar eklemlerdir-->
+
+    <!--gövde ile sol kol bağlantısı-->
+    <joint name="base_left_arm_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_arm_link"/>
+        <origin xyz="0 0 1.0" rpy="0 0 0"/> <!-- ana kola uzaklık-->
+    </joint>
+
+    <!--gövde ile sağ kol bağlantısı-->
+    <joint name="base_right_arm_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_arm_link"/>
+        <origin xyz="0 0 -1.0" rpy="0 0 0"/>
+    </joint>
+    
+
+</robot>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="simple_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- parçaların renk gibi özelliklerini tanımlamak için kullanılır(tekrara düşmemek için)-->
+
+
+    <material name="blue">
+        <color rgba="0 0 1 1"/> <!-- red, yeşil, mavi, opaklık-->
+    </material>
+    <material name="green">
+        <color rgba="0 1 0 1"/> <!-- red, yeşil, mavi, opaklık-->
+    </material>
+
+    <material name="red">
+        <color rgba="1 0 0 1"/> <!-- red, yeşil, mavi, opaklık-->
+    </material>
+</robot>

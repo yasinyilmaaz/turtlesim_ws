@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- çağırılmasa sırası önemli macro var ise daha önce çağrılması daha doğru olur-->
+    <xacro:include filename="properties.xacro" />
+    <xacro:include filename="properties_gazebo.xacro" />
+    <xacro:include filename="my_robot.xacro" />
+
+    <xacro:include filename="camera.xacro"/>
+    <xacro:include filename="lidar.xacro"/>
+    
+    <!--gazebo ekranına kamera lidar eklemek için bu kısım kullanılır -->
+    <gazebo reference="camera_link">
+        <material>Gazebo/Red</material><!--gazbodaki rengi-->
+        <sensor name="camera_sensor" type="camera"><!--kamera olduğu type kısmında belirtildi lidar için ray-->
+            <pose>0 0 0 0 0</pose><!--x y z roll pitch yaw-->
+            <!-- 
+                roll: bir nesnenin boylamasına yani x ekseninde sağ yada sola yatış haraketi
+                örnek: uçağın kanatlar sağa veya sola doğru eğilir.
+                pitch: bir nesneyi yatay yani y ekseninde yukarı ve ya aşağı doğru haraketi
+                örnek: Uçağın burnu yukarı kalkar veya aşağı iner.
+                yaw: bir nesnenin dikey yani z ekseninde sağ veya sola dönme haraketidir
+                örnek: Uçağın burnu sağa veya sola döner.
+            -->
+
+            <visualize>true</visualize><!--gazebo arayüzünde kamera görüntüsünün gösterilmesini sağlar-->
+            <update_rate>10.0</update_rate><!--hz saniyede güncelleme sayısı(10fps-->
+            
+            <!--ros entegrasyon eklentisi-->
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <frame_name>camera_link</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+
+</robot>

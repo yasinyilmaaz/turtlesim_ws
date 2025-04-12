@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<robot name="simple_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!--birden fazla dosya oluşturulduğunda bağlantıları sağlamak için kullanılan ana yönetim dosyası-->
+    <xacro:include filename="colors.xacro" />
+    <xacro:include filename="test.xacro" />
+</robot>
